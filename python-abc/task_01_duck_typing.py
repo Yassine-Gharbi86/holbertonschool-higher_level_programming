@@ -5,7 +5,6 @@ and a function shape_info that uses duck typing
 to print the area and perimeter of a shape."""
 
 from abc import ABC, abstractmethod
-import math
 
 
 class Shape(ABC):
@@ -32,14 +31,15 @@ class Circle(Shape):
             radius (float): The radius of the circle.
         """
         self.radius = radius
+        self.pi = 3.141592653589793
 
     def area(self):
         """Returns the area of the circle."""
-        return math.pi * (self.radius ** 2)
+        return self.pi * (self.radius ** 2)
 
     def perimeter(self):
         """Returns the perimeter of the circle."""
-        return 2 * math.pi * self.radius
+        return 2 * self.pi * self.radius
 
 
 class Rectangle(Shape):
@@ -65,10 +65,10 @@ class Rectangle(Shape):
 
 
 def shape_info(shape):
-    """Prints the area and perimeter of a shape.
+    """Prints the area and perimeter of a shape using duck typing.
 
     Args:
-        shape (Shape): An object of type Shape.
+        shape: An object that has area() and perimeter() methods.
     """
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
