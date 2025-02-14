@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Writes a string to a text file (UTF8)"""
 
 
 def write_file(filename="", text=""):
