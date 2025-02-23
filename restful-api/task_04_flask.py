@@ -1,8 +1,4 @@
 from flask import Flask, request, jsonify
-"""
-This module provides a simple Flask API that returns a simple response.
-"""
-
 
 app = Flask(__name__)
 users = {
@@ -42,7 +38,7 @@ def status():
     """
     Returns a simple response.
     """
-    return "OK"
+    return jsonify("OK")
 
 
 @app.route("/users/<username>")
@@ -81,6 +77,6 @@ def add_user():
 
 if __name__ == "__main__":
     """
-    Starts the Flask API on port 5000.
+    Starts the Flask app.
     """
-    app.run()
+    app.run(port=5000, debug=False)
