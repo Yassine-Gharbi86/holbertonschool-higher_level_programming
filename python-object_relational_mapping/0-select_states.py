@@ -7,34 +7,34 @@ import MySQLdb
 import sys
 
 
-def list_states(username, password, db_name):
-    """
-    Connects to a MySQL database and lists all states sorted by `id`.
-    Args:
-        username (str): MySQL username.
-        password (str): MySQL password.
-        db_name (str): Database name.
-    """
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=username,
-        passwd=password,
-        db=db_name
-    )
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: ./0-select_states.py <mysql username>\
+            <mysql password> <database name>")
+        sys.exit(1)
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+    try:
+        db = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=username,
+            passwd=password,
+            db=db_name
+        )
+    except MySQLdb.Error as e:
+        print(f"Error connecting to MySQL: {e}")
+        sys.exit(1)
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    try:
+        cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    except MySQLdb.Error as e:
+        print(f"Error executing query: {e}")
+        db.close()
+        sys.exit(1)
     rows = cursor.fetchall()
     for row in rows:
         print(row)
     cursor.close()
     db.close()
-
-
-if __name__ == "__main__":
-
-    if len(sys.argv) == 4:
-        username = sys.argv[1]
-        password = sys.argv[2]
-        db_name = sys.argv[3]
-        list_states(username, password, db_name)
